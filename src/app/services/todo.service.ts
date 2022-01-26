@@ -19,6 +19,11 @@ export class TodoService {
     return this.http.get<todo[]>(this.baseUrl);
   }
 
+  findById(id: any): Observable <todo>{
+    const url = `${this.baseUrl}/${id}`
+    return this.http.get<todo>(url);
+  }
+
   update(todo: todo): Observable <todo>{
     const url = `${this.baseUrl}/${todo.id}`
     return this.http.put<todo>(url, todo);
