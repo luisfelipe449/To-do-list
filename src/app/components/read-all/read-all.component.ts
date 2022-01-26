@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { todo } from 'src/app/models/todo';
 import { TodoService } from 'src/app/services/todo.service';
 
@@ -11,22 +12,22 @@ export class ReadAllComponent implements OnInit {
 
   closed = 0;
 
-  list: todo[] = [  ];
-  listFinished: todo[]=[];
+  list: todo[] = [];
+  listFinished: todo[] = [];
 
-  constructor(private service:TodoService) { }
+  constructor(private service: TodoService, private router: Router) { }
 
   ngOnInit(): void {
     this.findAll();
-    
+
   }
 
-  findAll(): void{
+  findAll(): void {
     this.service.findAll().subscribe((resposta) => {
       resposta.forEach(todo => {
-        if(todo.finalizado){
+        if (todo.finalizado) {
           this.listFinished.push(todo);
-        } else{
+        } else {
           this.list.push(todo);
         }
       })
@@ -35,21 +36,33 @@ export class ReadAllComponent implements OnInit {
     })
   }
 
-  delete(id: any):void{
-    this.service.delete(id).subscribe((resposta)=>{
-      if(resposta==null){
+  finalizar(item: todo): void {
+    item.finalizado = true;
+    this.service.update(item).subscribe(() => {
+      this.service.message('Task finalizada com sucesso!');
+      this.list = this.list.filter(todo => todo.id !== item.id)
+      this.closed++
+    });
+  }
+
+  delete(id: any): void {
+    this.service.delete(id).subscribe((resposta) => {
+      if (resposta == null) {
         this.service.message('Task deletada com sucesso!');
         this.list = this.list.filter(todo => todo.id !== id);
       }
     })
   }
-
-
-    countClosed(): void{
-      for(let todo of this.list) {
-        if(todo.finalizado){
-          this.closed++;
-        }
+  countClosed(): void {
+    for (let todo of this.list) {
+      if (todo.finalizado) {
+        this.closed++;
       }
     }
+  }
+
+  navegarParaFinalizados(): void {
+    this.router.navigate(['finalizados'])
+  }
+
 }

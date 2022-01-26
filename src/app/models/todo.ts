@@ -2,6 +2,6 @@ export interface todo {
     id?: String,
     titulo: String,
     descricao?: String,
-    dataParaFinalizar: Date,
+    dataParaFinalizar: any,
     finalizado: Boolean
 }
