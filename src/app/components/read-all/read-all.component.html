@@ -1,28 +1,56 @@
 <div class="container">
-    <div class="badge">
-    <button (click)="navegarParaFinalizados()" mat-stroked-button color="primary" matBadge="{{ closed }}">Tarefas finalizadas</button>
-    </div>
-<button routerLink="create" class="novo-todo mat-elevation-z8" mat-stroked-button color="primary">Novo to-do</button>
+  <div class="menu">
+    <button
+      routerLink="create"
+      class="novo-todo mat-elevation-z8"
+      mat-stroked-button
+      color="primary"
+    >
+      Criar nova tarefa
+    </button>
+    <button
+    class="novo-todo mat-elevation-z8"
+    (click)="navegarParaFinalizados()"
+    mat-stroked-button
+    color="primary"
+    matBadge="{{ closed }}"
+  >
+    Tarefas finalizadas
+  </button>
+  </div>
 
-<div class="content" *ngFor="let item of list">
+  <div class="content">
+    <p class="titulo" color="accent">Lista de tarefas</p>
+  </div>
+
+  <div class="content" *ngFor="let item of list">
     <mat-card class="mat-elevation-z8">
-        <p>Data para finalizar: {{ item.dataParaFinalizar }}</p>
-    <mat-card-header>             
+      <p>Data para finalizar: {{ item.dataParaFinalizar }}</p>
+      <mat-card-header>
         <mat-card-title>{{ item.titulo }}</mat-card-title>
         <mat-card-subtitle>{{ item.descricao }}</mat-card-subtitle>
-    </mat-card-header>
-<div class="actions">
-    <button (click)="finalizar(item)" mat-mini-fab color="primary">
-        <mat-icon>done</mat-icon>
+      </mat-card-header>
+      <div class="actions">
+        <button (click)="finalizar(item)" mat-mini-fab color="primary">
+          <mat-icon>done</mat-icon>
+        </button>
+        <button routerLink="update/{{ item.id }}" mat-mini-fab color="accent">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button (click)="delete(item.id)" mat-mini-fab color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card>
+  </div>
+  <div class="badge">
+    <button
+      (click)="navegarParaFinalizados()"
+      mat-stroked-button
+      color="primary"
+      matBadge="{{ closed }}"
+    >
+      Tarefas finalizadas
     </button>
-    <button routerLink='update/{{item.id}}' mat-mini-fab color="accent">
-        <mat-icon>edit</mat-icon>
-    </button>
-    <button (click)="delete(item.id)" mat-mini-fab color="warn">
-        <mat-icon>delete</mat-icon> 
-    </button>
+  </div>
 </div>
-</mat-card>
-</div>
-
-

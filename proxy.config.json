@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+    "target": "https://luis-todo-list.herokuapp.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
