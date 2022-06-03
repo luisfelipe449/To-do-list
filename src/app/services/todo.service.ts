@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { todo } from '../models/todo';
 
 
@@ -11,7 +10,7 @@ import { todo } from '../models/todo';
 })
 export class TodoService {
 
-  baseUrl = environment.baseUrl;
+  baseUrl = 'https://luis-todo-list.herokuapp.com/todos';
 
   constructor(private http: HttpClient, private snack: MatSnackBar) { }
 
